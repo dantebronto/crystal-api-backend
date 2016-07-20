@@ -1,0 +1,2 @@
+pg:
+  database: postgres://clyde:clyde@localhost:5432/cool_test

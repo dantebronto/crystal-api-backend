@@ -1,0 +1,20 @@
+name: backend
+version: 0.1.0
+
+authors:
+  - Kellen Presley <klpresley@gmail.com>
+
+license: MIT
+
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    branch: master
+
+  kemalyst-model:
+    github: drujensen/kemalyst-model
+    branch: master
+
+  pg:
+    github: will/crystal-pg
+    branch: master
