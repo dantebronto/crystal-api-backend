@@ -10,11 +10,9 @@ dependencies:
   kemal:
     github: sdogruyol/kemal
     branch: master
-
-  kemalyst-model:
-    github: drujensen/kemalyst-model
-    branch: master
-
   pg:
     github: will/crystal-pg
+    branch: master
+  pool:
+    github: ysbaddaden/pool
     branch: master

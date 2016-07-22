@@ -1,6 +1,4 @@
-require "../models/user"
-
-class UsersController
+class Widgets::Controller
   def index(env)
     env.response.content_type = "application/json"
     [
@@ -8,5 +6,13 @@ class UsersController
       { name: "Bob", age: 25 },
       { name: "Chuck", age: 33 }
     ].to_json
+  end
+
+  def create(env)
+    "hello from widgets#create"
+  end
+
+  def show(env)
+    "hello from widgets#show"
   end
 end

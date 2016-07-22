@@ -4,10 +4,6 @@ shards:
     github: sdogruyol/kemal
     commit: dc3cc7479871776f33c92f22025e70ddea55d595
 
-  kemalyst-model:
-    github: drujensen/kemalyst-model
-    commit: 8c3b0724c26bddbf5c2bb7756b3d825525eeaba6
-
   kilt:
     github: jeromegn/kilt
     version: 0.3.3
