@@ -1,0 +1,27 @@
+#! /usr/bin/env crystal
+require "../config/environment"
+
+admin = Users::Model.new.tap do |u|
+  u.name = "admin"
+  u.email = "admin@example.com"
+  u.password = "changeme"
+end
+
+Users::Services::Registration.new(admin).execute
+Users::Repository.new.create(admin) if Users::Validator.new(admin).validate.valid?
+admin = Users::Repository.new.find_for_auth(admin.email)
+
+Query.
+  update("users", { "admin" => true } of String => InsertType).
+  where("id = ?", admin.id.to_s).
+  execute
+
+session = Sessions::Model.new.tap do |s|
+  s.email = "admin@example.com"
+  s.password = "changeme"
+end
+
+puts "Obtaining token..."
+token = Sessions::Services::Signin.new(session).authenticate.token
+puts "Admin authentication token:"
+puts "export TOKEN=#{token}"

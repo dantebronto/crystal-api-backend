@@ -13,6 +13,9 @@ class Authentication < HTTP::Handler
     rescue KeyError
       env.response.status_code = 401
       env.response.print({ error: "Authentication header not found" }.to_json)
+    rescue ex : JWT::DecodeError
+      env.response.status_code = 401
+      env.response.print({ error: "Verification error", messages: [ex.message] }.to_json)
     rescue JWT::VerificationError
       env.response.status_code = 401
       env.response.print({ error: "Verification error", messages: ["Token not valid"] }.to_json)

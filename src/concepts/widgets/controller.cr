@@ -1,6 +1,6 @@
-class Widgets::Controller
-  def index(env)
-    env.response.content_type = "application/json"
+class Widgets::Controller < ApplicationController
+  def index
+    response.content_type = "application/json"
     [
       { name: "Alice", age: 20 },
       { name: "Bob", age: 25 },
@@ -8,11 +8,11 @@ class Widgets::Controller
     ].to_json
   end
 
-  def create(env)
+  def create
     "hello from widgets#create"
   end
 
-  def show(env)
+  def show
     "hello from widgets#show"
   end
 end

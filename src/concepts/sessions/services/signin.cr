@@ -25,7 +25,7 @@ class Sessions::Services::Signin
   end
 
   private def generate_token
-    payload = { "uid" => @session.user.id }
+    payload = { "uid" => @session.user.id, "nonce" => Time.now.epoch.to_s }
     @session.token = JWT.encode(payload, ENV["SESSION_SECRET"], "HS256")
   end
 end

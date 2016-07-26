@@ -30,7 +30,7 @@ Spec2.describe "Query building" do
 
     it "should support where-in clauses" do
       query = Query.from("users").where("id IN (?)", ["1", "2", "3"]).build_select
-      expect(query).to eq("SELECT * FROM users WHERE id IN (?,?,?)")
+      expect(query).to eq("SELECT * FROM users WHERE id IN (?, ?, ?)")
     end
   end
 

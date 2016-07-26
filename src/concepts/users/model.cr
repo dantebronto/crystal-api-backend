@@ -7,6 +7,11 @@ class Users::Model
   property encrypted_password : String | Nil
   property created_at : Int64 | Nil
   property updated_at : Int64 | Nil
+  property admin : Bool = false
 
   extend BuildFromSQL
+
+  def admin?
+    @admin
+  end
 end

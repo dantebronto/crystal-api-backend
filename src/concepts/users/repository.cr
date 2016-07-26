@@ -1,7 +1,11 @@
 class Users::Repository
   def all
-    Query.from("users").order("created_at DESC").execute.
-      map {|x| Model.from_sql(x) }
+    Query.from("users").order("created_at DESC").execute.map {|x| Model.from_sql(x) }
+  end
+
+  def find_by_id(id)
+    results = Query.from("users").where("id = ?", id).limit(1).execute
+    results.size == 0 ? Model.new : Model.from_sql(results.first)
   end
 
   def find(uuid)
@@ -12,15 +16,14 @@ class Users::Repository
 
   def create(user)
     results = Query.
-      insert({
+      insert("users", {
         "email" => user.email,
         "uuid" => user.uuid,
         "encrypted_password" => user.encrypted_password,
         "name" => user.name,
         "created_at" => Time.now,
         "updated_at" => Time.now
-      }).
-      into("users").
+      } of String => InsertType).
       execute
     Model.from_sql(results.first)
   end
@@ -31,7 +34,7 @@ class Users::Repository
         "name" => user.name,
         "email" => user.email,
         "updated_at" => Time.now,
-      }).
+      } of String => InsertType).
       where("id = ?", user.id.to_s).
       execute
     Model.from_sql(results.first)

@@ -1,7 +1,7 @@
-class Routes::Controller
+class Routes::Controller < ApplicationController
   @@response : String | Nil
 
-  def index(env)
+  def index
     @@response ||= Routes::Presenter.new(ROUTES).present
   end
 end

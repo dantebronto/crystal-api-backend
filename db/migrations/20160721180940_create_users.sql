@@ -8,11 +8,12 @@ CREATE TABLE users(
   name character varying NOT NULL,
   encrypted_password VARCHAR NOT NULL,
   created_at timestamp without time zone,
-  updated_at timestamp without time zone
+  updated_at timestamp without time zone,
+  admin boolean default false
 );
 
 CREATE SEQUENCE users_id_seq
-  START WITH 1
+  START WITH 1121
   INCREMENT BY 1
   NO MINVALUE
   NO MAXVALUE

@@ -1,5 +1,3 @@
-"../modules/repository_helpers"
-
 class Query
 
   def self.select(string = "*")
@@ -12,6 +10,10 @@ class Query
 
   def self.insert(values)
     self.new.insert(values)
+  end
+
+  def self.insert(table, values)
+    self.new.insert(table, values)
   end
 
   def self.update(values)
@@ -29,12 +31,11 @@ class Query
   def initialize
     @select = "*"
     @wheres = [] of String
-    @params = [] of String
+    @params = [] of InsertType
     @limit = ""
     @table = ""
     @from = ""
     @order = ""
-    @into = ""
     @values = {} of String => InsertType
     @insert_keys = ""
     @insert_values = ""
@@ -44,7 +45,7 @@ class Query
   end
 
   def into(string = "")
-    @into = string
+    @table = string
     self
   end
 
@@ -67,6 +68,11 @@ class Query
     @insert_values = value_strings.join(", ")
 
     self
+  end
+
+  def insert(table, values)
+    @table = table
+    insert(values)
   end
 
   def update(values)
@@ -98,9 +104,9 @@ class Query
     self
   end
 
-  def where(string : String, param : String)
+  def where(string : String, param : InsertType)
     @wheres.push(string)
-    @params.push(param.to_s)
+    @params.push(param)
     self
   end
 
@@ -118,7 +124,7 @@ class Query
     if string =~ / IN | in /
       expanded = [] of String
       ara.each {|a| expanded << "?" }
-      string = string.sub("?", expanded.join(","))
+      string = string.sub("?", expanded.join(", "))
     end
     @wheres.push(string)
     ara.each {|a| @params.push(a) }
@@ -194,7 +200,7 @@ class Query
 
   def build_insert
     q = [] of String
-    q.push("INSERT INTO #{@into} (#{@insert_keys})")
+    q.push("INSERT INTO #{@table} (#{@insert_keys})")
     q.push("VALUES (#{@insert_values})")
     q.push("RETURNING *")
     q.join(" ")

@@ -1,1 +1,1 @@
-alias InsertType = String | Time | Nil
+alias InsertType = String | Time | Bool | Nil
