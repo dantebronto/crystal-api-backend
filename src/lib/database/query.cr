@@ -155,13 +155,12 @@ class Query
 
   def run(string)
     start = Time.now
-    db_log(string)
 
     conn = DB.checkout
     rows = conn.exec(string)
     DB.checkin(conn)
 
-    db_log(elapsed_text(Time.new - start))
+    db_log(string, elapsed_text(Time.new - start))
     rows.to_hash
   end
 
@@ -169,14 +168,12 @@ class Query
     start = Time.now
 
     string = handle_positional_args(string)
-    db_log(string)
-    db_log(params.inspect)
 
     conn = DB.checkout
     rows = conn.exec(string, params)
     DB.checkin(conn)
 
-    db_log(elapsed_text(Time.new - start))
+    db_log(string, elapsed_text(Time.new - start), params)
     rows.to_hash
   end
 
@@ -253,9 +250,17 @@ class Query
     query
   end
 
-  private def db_log(string)
-    return if ENV["LOG_DB"] == "true"
-    puts "\e[35m#{string}\e[0m"
+  private def db_log(string, elapsed)
+    return unless ENV["LOG_DB"] == "true"
+    puts "\e[36m#{"%7.7s" % elapsed} \e[34m#{string}\e[0m"
+  end
+
+  private def db_log(string, elapsed, params)
+    return unless ENV["LOG_DB"] == "true"
+    params.each do |param|
+      string = string.sub(/\$\d+/, "'#{param}'")
+    end
+    db_log(string, elapsed)
   end
 
   private def elapsed_text(elapsed)

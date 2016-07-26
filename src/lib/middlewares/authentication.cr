@@ -19,5 +19,3 @@ class Authentication < HTTP::Handler
     end
   end
 end
-
-Kemal.config.add_handler Authentication.new

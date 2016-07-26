@@ -4,5 +4,3 @@ class JSONContentType < HTTP::Handler
     call_next env
   end
 end
-
-Kemal.config.add_handler JSONContentType.new
