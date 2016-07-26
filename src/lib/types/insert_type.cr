@@ -1,0 +1,1 @@
+alias InsertType = String | Time | Nil

@@ -16,3 +16,17 @@ dependencies:
   pool:
     github: ysbaddaden/pool
     branch: master
+  jwt:
+    github: greyblake/crystal-jwt
+    branch: master
+  micrate:
+    github: juanedi/micrate
+    branch: master
+  uuid:
+    github: raydf/crystal-uuid
+    branch: master
+
+development_dependencies:
+  spec2:
+    github: waterlink/spec2.cr
+    version: ~> 0.9

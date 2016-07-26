@@ -1,5 +1,0 @@
-files: ./**/*.cr
-run: crystal ./src/backend.cr
----
-files: ./shard.yml
-run: crystal deps

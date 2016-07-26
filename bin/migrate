@@ -1,0 +1,8 @@
+#! /usr/bin/env crystal
+require "../config/environment"
+
+puts ENV["PG_URL"]
+
+require "micrate"
+
+Micrate::Cli.run

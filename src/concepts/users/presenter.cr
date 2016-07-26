@@ -30,7 +30,8 @@ module Users
 
     def full_object(io)
       io.json_object do |obj|
-        {% for prop in ["id", "name", "created_at", "updated_at"] %}
+        obj.field "id", @subject.uuid
+        {% for prop in ["email", "name", "created_at", "updated_at"] %}
           obj.field {{prop}}, @subject.{{prop.id}}
         {% end %}
       end

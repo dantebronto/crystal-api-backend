@@ -5,12 +5,13 @@ class Users::Controller
   end
 
   def show(env)
-    user = Repository.new.find(env.params.url["id"].to_i)
+    user = Repository.new.find(env.params.url["id"])
     Presenter.new(user).present
   end
 
   def create(env)
-    user = Parser.new(Model.new, env.params.json).execute
+    user = Loader.new(env.params.json).execute
+    Services::Registration.new(user).execute
     validator = Validator.new(user).validate
 
     if validator.valid?
@@ -19,13 +20,13 @@ class Users::Controller
       Presenter.new(user).present
     else
       env.response.status_code = 422
-      return { error: "Failed to create user", errors: validator.errors }.to_json
+      return { error: "Failed to create user", messages: validator.errors }.to_json
     end
   end
 
   def update(env)
-    user = Repository.new.find(env.params.url["id"].to_i)
-    user = Parser.new(user, env.params.json).execute
+    user = Repository.new.find(env.params.url["id"])
+    Loader.new(env.params.json).set_user(user).execute
     validator = Validator.new(user).validate
 
     if validator.valid?
@@ -33,12 +34,12 @@ class Users::Controller
       Presenter.new(user).present
     else
       env.response.status_code = 422
-      return { error: "Failed to update user", errors: validator.errors }.to_json
+      return { error: "Failed to update user", messages: validator.errors }.to_json
     end
   end
 
   def delete(env)
-    user = Repository.new.find(env.params.url["id"].to_i)
+    user = Repository.new.find(env.params.url["id"])
     Repository.new.delete(user)
     env.response.status_code = 204
   end

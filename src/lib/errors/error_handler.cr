@@ -21,11 +21,11 @@ class ErrorHandler
 
   private def record_not_found
     @env.response.status_code = 404
-    { error: "Record not found" }.to_json
+    { error: "Not found" }.to_json
   end
 
   private def parser_exception
     @env.response.status_code = 400
-    { error: "Bad Request", message: "Unable to parse JSON payload" }.to_json
+    { error: "Bad Request", messages: ["Unable to parse JSON payload"] }.to_json
   end
 end
