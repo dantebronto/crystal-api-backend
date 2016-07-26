@@ -5,7 +5,7 @@ class Users::Repository
   end
 
   def find(uuid)
-    results = Query.from("users").where("uuid = $?", uuid).limit(1).execute
+    results = Query.from("users").where("uuid = ?", uuid).limit(1).execute
     raise RecordNotFound.new if results.size == 0
     Model.from_sql(results.first)
   end
@@ -32,29 +32,29 @@ class Users::Repository
         "email" => user.email,
         "updated_at" => Time.now,
       }).
-      where("id = $?", user.id.to_s).
+      where("id = ?", user.id.to_s).
       execute
     Model.from_sql(results.first)
   end
 
   def delete(user)
-    Query.delete.from("users").where("uuid = $?", user.uuid.to_s).execute
+    Query.delete.from("users").where("uuid = ?", user.uuid.to_s).execute
   end
 
   def email_unique?(user)
-    query = Query.select("email").from("users").where("email = $?", user.email.to_s)
-    query.where("id != $?", user.id.to_s) if user.id
+    query = Query.select("email").from("users").where("email = ?", user.email.to_s)
+    query.where("id != ?", user.id.to_s) if user.id
     query.limit(1).count == 0
   end
 
   def name_unique?(user)
-    query = Query.select("name").from("users").where("name = $?", user.name.to_s)
-    query.where("id != $?", user.id.to_s) if user.id
+    query = Query.select("name").from("users").where("name = ?", user.name.to_s)
+    query.where("id != ?", user.id.to_s) if user.id
     query.limit(1).count == 0
   end
 
   def find_for_auth(email)
-    results = Query.from("users").where("email = $?", email.to_s).limit(1).execute
+    results = Query.from("users").where("email = ?", email.to_s).limit(1).execute
     results.size == 0 ? Model.new : Model.from_sql(results.first)
   end
 end

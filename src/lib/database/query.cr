@@ -63,7 +63,7 @@ class Query
     @insert_keys = values.keys.join(", ")
 
     value_strings = [] of String
-    @values.values.each {|a| value_strings << "$?" }
+    @values.values.each {|a| value_strings << "?" }
     @insert_values = value_strings.join(", ")
 
     self
@@ -74,7 +74,7 @@ class Query
 
     update_clause = [] of String
     @values.each do |key, value|
-      update_clause << "#{key} = $?"
+      update_clause << "#{key} = ?"
     end
 
     @update_string = "SET #{update_clause.join(", ")}"
@@ -117,8 +117,8 @@ class Query
   def where(string : String, ara : Array(String))
     if string =~ / IN | in /
       expanded = [] of String
-      ara.each {|a| expanded << "$?" }
-      string = string.sub("$?", expanded.join(","))
+      ara.each {|a| expanded << "?" }
+      string = string.sub("?", expanded.join(","))
     end
     @wheres.push(string)
     ara.each {|a| @params.push(a) }
@@ -239,10 +239,10 @@ class Query
     end
   end
 
-  # convert $?, $?, $?... to $1, $2, $3...
+  # convert ?, ?, ?... to $1, $2, $3...
   private def handle_positional_args(string)
     query = ""
-    chunks = string.split("$?")
+    chunks = string.split("?")
     chunks.each_with_index do |chunk, i|
       query += chunk
       query += "$#{i+1}" if i != chunks.size - 1
