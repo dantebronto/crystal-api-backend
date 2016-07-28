@@ -9,8 +9,17 @@ class ApplicationController
     @env.params
   end
 
+  def status(code)
+    @env.response.status_code = code
+  end
+
   def response
     @env.response
+  end
+
+  def error(body, status)
+    @env.response.status_code = status
+    body.to_json
   end
 
   def current_user
