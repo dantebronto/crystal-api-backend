@@ -28,6 +28,14 @@ class Query
     self.new.delete
   end
 
+  def self.run(string)
+    self.new.run(string)
+  end
+
+  def self.run(string, params)
+    self.new.run(string, params)
+  end
+
   def initialize
     @select = "*"
     @wheres = [] of String
