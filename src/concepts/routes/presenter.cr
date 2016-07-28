@@ -1,5 +1,5 @@
 class Routes::Presenter
-  def initialize(@subject : Array(::Route), @role : Symbol | Nil = nil)
+  def initialize(@subject : Array(::Route), @role : Symbol? = nil)
   end
 
   def present

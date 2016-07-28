@@ -1,5 +1,5 @@
 class Routes::Controller < ApplicationController
-  @@response : String | Nil
+  @@response : String?
 
   def index
     @@response ||= Routes::Presenter.new(ROUTES).present

@@ -1,12 +1,12 @@
 class Users::Model
-  property id : Int32 | Nil
-  property name : String | Nil
-  property uuid : String | Nil
-  property email : String | Nil
-  property password : String | Nil
-  property encrypted_password : String | Nil
-  property created_at : Int64 | Nil
-  property updated_at : Int64 | Nil
+  property id : Int32?
+  property name : String?
+  property uuid : String?
+  property email : String?
+  property password : String?
+  property encrypted_password : String?
+  property created_at : Int64?
+  property updated_at : Int64?
   property admin : Bool = false
 
   extend BuildFromSQL
