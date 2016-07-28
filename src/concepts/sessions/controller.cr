@@ -6,18 +6,22 @@ class Sessions::Controller < ApplicationController
     validator = Validator.new(session).validate
 
     unless validator.valid?
-      response.status_code = 401
-      return { error: "Not authenticated", messages: validator.errors }.to_json
+      return error({
+        error: "Not authenticated",
+        messages: validator.errors
+      }, status: 401)
     end
 
     Services::Signin.new(session).authenticate
 
     unless session.authenticated?
-      response.status_code = 401
-      return { error: "Not authenticated", messages: ["Token could not be created"] }.to_json
+      return error({
+        error: "Not authenticated",
+        messages: ["Token could not be created"]
+      }, 401)
     end
 
-    response.status_code = 201
-    { token: session.token }
+   status 201
+    { token: session.token }.to_json
   end
 end
