@@ -54,6 +54,7 @@ It uses ~10% of a single i7 CPU for the Crystal server.
 I use nodemon to detect changes and automatically restart the server and run tests:
 
 `nodemon --exec crystal src/backend.cr`
+
 `nodemon --exec crystal spec/backend_spec.cr`
 
 It seems to get tripped up and needs to be restarted when the output is a really long stacktrace or something ¯\\_(ツ)_/¯
