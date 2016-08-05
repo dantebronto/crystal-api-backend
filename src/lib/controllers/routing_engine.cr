@@ -2,7 +2,7 @@ ROUTES = [] of Route
 
 class Route
   getter :action, :path, :verb
-  # property visibility : String = "authenticated"
+
   def initialize(@verb : String, @path : String, @action : String)
     ROUTES << self
   end
@@ -16,6 +16,7 @@ class Router
     end
     Route.new("HEAD", {{path}}, {{action}})
   end
+
   macro get(path, action)
     {% split = action.split("#") %}
     Kemal::RouteHandler::INSTANCE.add_route("GET", {{path}}) do |env|
@@ -23,6 +24,7 @@ class Router
     end
     Route.new("GET", {{path}}, {{action}})
   end
+
   macro post(path, action)
     {% split = action.split("#") %}
     Kemal::RouteHandler::INSTANCE.add_route("POST", {{path}}) do |env|
@@ -30,6 +32,7 @@ class Router
     end
     Route.new("POST", {{path}}, {{action}})
   end
+
   macro put(path, action)
     {% split = action.split("#") %}
     Kemal::RouteHandler::INSTANCE.add_route("PUT", {{path}}) do |env|
@@ -37,6 +40,7 @@ class Router
     end
     Route.new("PUT", {{path}}, {{action}})
   end
+
   macro patch(path, action)
     {% split = action.split("#") %}
     Kemal::RouteHandler::INSTANCE.add_route("PATCH", {{path}}) do |env|
@@ -44,6 +48,7 @@ class Router
     end
     Route.new("PATCH", {{path}}, {{action}})
   end
+
   macro delete(path, action)
     {% split = action.split("#") %}
     Kemal::RouteHandler::INSTANCE.add_route("DELETE", {{path}}) do |env|
@@ -51,6 +56,7 @@ class Router
     end
     Route.new("DELETE", {{path}}, {{action}})
   end
+
   macro match(verb, path, action)
     {% split = action.split("#") %}
     Kemal::RouteHandler::INSTANCE.add_route({{verb}}, {{path}}) do |env|
@@ -58,6 +64,7 @@ class Router
     end
     Route.new({{verb}}, {{path}}, {{action}})
   end
+
   def self.draw
     with self yield
   end

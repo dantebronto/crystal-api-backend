@@ -1,5 +1,4 @@
 class Query
-
   def self.select(string = "*")
     self.new.select(string)
   end
@@ -72,7 +71,7 @@ class Query
     @insert_keys = values.keys.join(", ")
 
     value_strings = [] of String
-    @values.values.each {|a| value_strings << "?" }
+    @values.values.each { |a| value_strings << "?" }
     @insert_values = value_strings.join(", ")
 
     self
@@ -131,15 +130,15 @@ class Query
   def where(string : String, ara : Array(String))
     if string =~ / IN | in /
       expanded = [] of String
-      ara.each {|a| expanded << "?" }
+      ara.each { |a| expanded << "?" }
       string = string.sub("?", expanded.join(", "))
     end
     @wheres.push(string)
-    ara.each {|a| @params.push(a) }
+    ara.each { |a| @params.push(a) }
     self
   end
 
-  def limit(number=1)
+  def limit(number = 1)
     @limit = number.to_s
     self
   end
@@ -153,10 +152,10 @@ class Query
     @count_called = true
 
     res = if @params.size > 0
-      run(build_select, @params)
-    else
-      run(build_select)
-    end
+            run(build_select, @params)
+          else
+            run(build_select)
+          end
 
     res.first["count"]
   end
@@ -224,7 +223,7 @@ class Query
     q.push(@update_string)
     q.push(where_clauses)
     q.push("RETURNING *")
-    q.flatten.reject {|x| x == "" }.join(" ")
+    q.flatten.reject { |x| x == "" }.join(" ")
   end
 
   private def execute_update
@@ -237,8 +236,8 @@ class Query
       @from,
       where_clauses,
       @order,
-      @limit == "" ? "" : "LIMIT #{@limit}"
-    ].flatten.reject {|x| x == "" }.join(" ")
+      @limit == "" ? "" : "LIMIT #{@limit}",
+    ].flatten.reject { |x| x == "" }.join(" ")
   end
 
   def build_delete
@@ -259,7 +258,7 @@ class Query
     chunks = string.split("?")
     chunks.each_with_index do |chunk, i|
       query += chunk
-      query += "$#{i+1}" if i != chunks.size - 1
+      query += "$#{i + 1}" if i != chunks.size - 1
     end
     query
   end
@@ -289,5 +288,4 @@ class Query
 
     "#{(millis * 1000).round(2)}µs"
   end
-
 end

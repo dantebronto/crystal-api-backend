@@ -13,12 +13,12 @@ Spec2.describe "Query building" do
     end
 
     it "should allow where clauses" do
-      query = Query.
-        select("name, uuid").
-        from("users").
-        where("name = ?", "bob").
-        where("uuid = ?", "1234").
-        build_select
+      query = Query
+        .select("name, uuid")
+        .from("users")
+        .where("name = ?", "bob")
+        .where("uuid = ?", "1234")
+        .build_select
 
       expect(query).to eq("SELECT name, uuid FROM users WHERE name = ? AND uuid = ?")
     end
@@ -48,26 +48,27 @@ Spec2.describe "Query building" do
 
   describe "insert" do
     it "should allow insert from a hash" do
-      query = Query.insert({ "name" => "Bob", "email" => "bob@example.com" } of String => InsertType).into("users").build_insert
+      query = Query.insert({"name" => "Bob", "email" => "bob@example.com"} of String => InsertType).into("users").build_insert
       expect(query).to eq("INSERT INTO users (name, email) VALUES (?, ?) RETURNING *")
     end
   end
 
   describe "update" do
     it "should allow update from a hash" do
-      query = Query.update({ "name" => "Bob", "email" => "bob@example.com" } of String => InsertType).table("users").build_update
+      query = Query.update({"name" => "Bob", "email" => "bob@example.com"} of String => InsertType).table("users").build_update
       expect(query).to eq("UPDATE users SET name = ?, email = ? RETURNING *")
     end
 
     it "should allow where clauses" do
-      query = Query.update({ "name" => "Bob"} of String => InsertType).
-        where("id = ?", "123").
-        table("users").build_update
+      query = Query.update({"name" => "Bob"} of String => InsertType)
+                   .where("id = ?", "123")
+                   .table("users")
+                   .build_update
       expect(query).to eq("UPDATE users SET name = ? WHERE id = ? RETURNING *")
     end
 
     it "should allow passing of table into update method" do
-      query = Query.update("users", { "name" => "Bob"} of String => InsertType).build_update
+      query = Query.update("users", {"name" => "Bob"} of String => InsertType).build_update
       expect(query).to eq("UPDATE users SET name = ? RETURNING *")
     end
   end

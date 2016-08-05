@@ -21,7 +21,7 @@ class Users::Controller < ApplicationController
       status 201
       Presenter.new(user).present
     else
-      error({ error: "Failed to create user", messages: validator.errors }, status: 422)
+      error({error: "Failed to create user", messages: validator.errors}, status: 422)
     end
   end
 
@@ -35,7 +35,7 @@ class Users::Controller < ApplicationController
       user = Repository.new.update(user)
       Presenter.new(user).present
     else
-      error({ error: "Failed to update user", messages: validator.errors }, status: 422)
+      error({error: "Failed to update user", messages: validator.errors}, status: 422)
     end
   end
 

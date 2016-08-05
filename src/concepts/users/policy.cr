@@ -1,5 +1,4 @@
 class Users::Policy
-
   def initialize(@current_user : Model)
   end
 

@@ -2,18 +2,12 @@ class Users::CollectionPresenter
   def initialize(@subject : Array(Users::Model), @role : Symbol? = nil)
   end
 
+  include PresenterHelpers
+
   def present
-    String.build do |io|
-      io.json_object do |obj|
-        obj.field "users", do
-          io.json_array do |a|
-            @subject.each do |user|
-              a.push do
-                Users::Presenter.new(user, @role).full_object(io)
-              end
-            end
-          end
-        end
+    keyed_array("users") do |a, io|
+      @subject.each do |user|
+        a.push { Users::Presenter.new(user, @role).full_object(io) }
       end
     end
   end

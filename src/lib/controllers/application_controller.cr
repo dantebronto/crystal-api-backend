@@ -1,5 +1,4 @@
 class ApplicationController
-
   @current_user : Users::Model | Nil
 
   def initialize(@env : HTTP::Server::Context)

@@ -29,5 +29,5 @@ end
 
 error 404 do |env|
   env.response.content_type = "application/json"
-  { "error" => "not found" }.to_json
+  {"error" => "not found"}.to_json
 end

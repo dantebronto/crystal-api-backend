@@ -28,9 +28,9 @@ Spec2.describe Authentication do
   end
 
   it "should reject requests with an invalid auth header" do
-    mock = MockRequest.new("GET", "/api/users").
-      header("Authorization", "Bearer fake-token").
-      json
+    mock = MockRequest.new("GET", "/api/users")
+                      .header("Authorization", "Bearer fake-token")
+                      .json
 
     Authentication.new.call(mock.env)
     expect(mock.response.status_code).to eq(401)
@@ -38,11 +38,11 @@ Spec2.describe Authentication do
   end
 
   it "should parse a valid token" do
-    payload = { "uid" => 1, "nonce" => Time.now.epoch.to_s }
+    payload = {"uid" => 1, "nonce" => Time.now.epoch.to_s}
     token = JWT.encode(payload, ENV["SESSION_SECRET"], "HS256")
 
-    mock = MockRequest.new("GET", "/api/users").
-      header("Authorization", "Bearer #{token}")
+    mock = MockRequest.new("GET", "/api/users")
+                      .header("Authorization", "Bearer #{token}")
 
     Authentication.new.call(mock.env)
     expect(mock.response.status_code).not_to eq(401)

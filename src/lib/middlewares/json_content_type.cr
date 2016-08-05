@@ -4,8 +4,8 @@ class JSONContentType < HTTP::Handler
     unless json_request?(env)
       env.response.status_code = 422
       return env.response.print({
-        error: "Non-JSON request",
-        messages: ["Content-Type header must be set to application/json"]
+        error:    "Non-JSON request",
+        messages: ["Content-Type header must be set to application/json"],
       }.to_json)
     end
     call_next env

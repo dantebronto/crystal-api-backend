@@ -11,12 +11,12 @@ module BuildFromSQL
     {% end %}
 
     if hash.has_key?("created_at")
-      created = hash["created_at"] as Time
+      created = hash["created_at"].as(Time)
       object.created_at = created.to_s("%s%L").to_i64
     end
 
     if hash.has_key?("updated_at")
-      updated = hash["updated_at"] as Time
+      updated = hash["updated_at"].as(Time)
       object.updated_at = updated.to_s("%s%L").to_i64
     end
     object

@@ -1,6 +1,6 @@
 class Users::Repository
   def all
-    Query.from("users").order("created_at DESC").execute.map {|x| Model.from_sql(x) }
+    Query.from("users").order("created_at DESC").execute.map { |x| Model.from_sql(x) }
   end
 
   def find_by_id(id)
@@ -15,28 +15,28 @@ class Users::Repository
   end
 
   def create(user)
-    results = Query.
-      insert("users", {
-        "email" => user.email,
-        "uuid" => user.uuid,
-        "encrypted_password" => user.encrypted_password,
-        "name" => user.name,
-        "created_at" => Time.utc_now,
-        "updated_at" => Time.utc_now
-      } of String => InsertType).
-      execute
+    results = Query
+      .insert("users", {
+      "email"              => user.email,
+      "uuid"               => user.uuid,
+      "encrypted_password" => user.encrypted_password,
+      "name"               => user.name,
+      "created_at"         => Time.utc_now,
+      "updated_at"         => Time.utc_now,
+    } of String => InsertType)
+      .execute
     Model.from_sql(results.first)
   end
 
   def update(user)
-    results = Query.
-      update("users", {
-        "name" => user.name,
-        "email" => user.email,
-        "updated_at" => Time.utc_now,
-      } of String => InsertType).
-      where("id = ?", user.id.to_s).
-      execute
+    results = Query
+      .update("users", {
+      "name"       => user.name,
+      "email"      => user.email,
+      "updated_at" => Time.utc_now,
+    } of String => InsertType)
+      .where("id = ?", user.id.to_s)
+      .execute
     Model.from_sql(results.first)
   end
 
