@@ -1,6 +1,6 @@
-require "../../spec_helper"
+require "../spec_helper"
 
-Spec2.describe "Query building" do
+Spec2.describe Query do
   describe "select" do
     it "should allow select queries" do
       query = Query.select("*").from("users").build_select

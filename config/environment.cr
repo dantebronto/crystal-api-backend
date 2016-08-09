@@ -7,6 +7,6 @@ require "pool/connection"
 require "./env_vars"
 require "./initializers/**"
 
-require "../src/lib/**"
+require "../src/shared/**"
 require "../src/concepts/**"
 require "./routes"

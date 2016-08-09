@@ -1,4 +1,4 @@
-Router.draw do
+Routes::Router.draw do
   post "/api/sessions", "sessions#create"
 
   get "/api/users", "users#index"

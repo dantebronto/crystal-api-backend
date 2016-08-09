@@ -1,3 +1,5 @@
+alias InsertType = String | Time | Bool | Nil
+
 class Query
   def self.select(string = "*")
     self.new.select(string)

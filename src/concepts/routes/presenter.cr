@@ -1,5 +1,5 @@
 class Routes::Presenter
-  def initialize(@subject : Array(::Route), @role : Symbol? = nil)
+  def initialize(@subject : Array(Routes::Model), @role : Symbol? = nil)
   end
 
   include PresenterHelpers
