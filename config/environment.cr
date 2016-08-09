@@ -4,7 +4,7 @@ require "jwt"
 require "pg"
 require "pool/connection"
 
-require "./env_vars"
+require "./initializers/env_loader"
 require "./initializers/**"
 
 require "../src/shared/**"

@@ -1,3 +1,5 @@
+Kemal.config.add_handler Kemal::RouteHandler::INSTANCE
+
 class MockRequest
   getter :io, :request, :env
 
