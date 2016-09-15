@@ -1,8 +1,8 @@
 version: 1.0
 shards:
   jwt:
-    github: greyblake/crystal-jwt
-    commit: 22ce21329f5984f5d15166c47e9523a6304b1eca
+    github: akwiatkowski/crystal-jwt
+    commit: f0bf2608dc6a38362c686cb47b2f52a67672c495
 
   kemal:
     github: sdogruyol/kemal
@@ -15,10 +15,6 @@ shards:
   micrate:
     github: juanedi/micrate
     commit: 627fb9a11e757ccbda0e0e5f6df727a99cd01a9e
-
-  mock:
-    github: porras/mock
-    commit: 08cb37cb6c175ea098d6ed9b10add65911bac83e
 
   pg:
     github: will/crystal-pg
@@ -34,9 +30,9 @@ shards:
 
   spec2:
     github: waterlink/spec2.cr
-    version: 0.9.0
+    commit: eef5144d86f3aadf95811ffc0450be389db36fed
 
   uuid:
     github: raydf/crystal-uuid
-    commit: 47b81b3034d1106c37a7baebeb9819bc7bd2a33c
+    commit: 1ee077db452e60607baab62f75b4e275e18b483c
 

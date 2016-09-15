@@ -1,5 +1,5 @@
 name: backend
-version: 0.1.0
+version: 0.1.1
 
 authors:
   - Kellen Presley <klpresley@gmail.com>
@@ -9,15 +9,15 @@ license: MIT
 dependencies:
   kemal:
     github: sdogruyol/kemal
-    branch: master
+    commit: dc3cc7479871776f33c92f22025e70ddea55d595
   pg:
     github: will/crystal-pg
-    branch: master
+    commit: cafe2a2c90a22595abe1312d330567cd85e683b2
   pool:
     github: ysbaddaden/pool
     branch: master
   jwt:
-    github: greyblake/crystal-jwt
+    github: akwiatkowski/crystal-jwt
     branch: master
   micrate:
     github: juanedi/micrate
@@ -29,4 +29,4 @@ dependencies:
 development_dependencies:
   spec2:
     github: waterlink/spec2.cr
-    version: ~> 0.9
+    branch: master

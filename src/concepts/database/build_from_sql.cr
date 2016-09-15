@@ -5,7 +5,7 @@ module BuildFromSQL
     {% for prop in @type.instance_vars %}
       {% if prop.stringify != "created_at" && prop.stringify != "updated_at" %}
         if hash.has_key?("{{prop}}")
-          object.{{prop}} = hash["{{prop}}"] as {{prop.type}}
+          object.{{prop}} = hash["{{prop}}"].as({{prop.type}})
         end
       {% end %}
     {% end %}
